@@ -20,11 +20,41 @@ namespace ServerApp.Controllers
 
 
         [HttpPost]
-        public ActionResult<TicketModel> Post(TicketModel ticket)
+        public ActionResult<TicketApiModel> Post(TicketApiModel apiTicket)
         {
-            if(ticket != null)
+            if(apiTicket != null)
             {
+                TicketModel ticket = new()
+                {
+                    Title = apiTicket.Title,
+                    Description = apiTicket.Description,
+                    SubmittedBy = apiTicket.SubmittedBy,
+                    IsResolved = apiTicket.IsResolved,
+                };
+
                 _context.Tickets.Add(ticket);
+
+                foreach(var tag in apiTicket.Tags)
+                {
+                    TagModel existingTag = _context.Tags.FirstOrDefault(t => t.Name == tag);
+
+                    if (existingTag == null)
+                    {
+                        existingTag.Name = tag;
+                        _context.Tags.Add(existingTag);
+                    }
+
+                    TicketTag newTicketTag = new()
+                    {
+                        Ticket = ticket,
+                        Tag = existingTag
+                    };
+
+                    _context.TicketTags.Add(newTicketTag);
+               
+                }
+
+                _context.SaveChanges();
                 return Ok();
             }
 
