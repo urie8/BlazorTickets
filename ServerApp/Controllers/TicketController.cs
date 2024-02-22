@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServerApp.Database;
 using Shared.Models;
@@ -10,6 +9,10 @@ namespace ServerApp.Controllers
     [ApiController]
     public class TicketController : ControllerBase
     {
+        public TicketController(AppDbContext context)
+        {
+            _context = context;
+        }
         AppDbContext _context;
 
         [HttpGet]
@@ -22,7 +25,7 @@ namespace ServerApp.Controllers
         [HttpPost]
         public ActionResult<TicketApiModel> Post(TicketApiModel apiTicket)
         {
-            if(apiTicket != null)
+            if (apiTicket != null)
             {
                 TicketModel ticket = new()
                 {
@@ -34,7 +37,7 @@ namespace ServerApp.Controllers
 
                 _context.Tickets.Add(ticket);
 
-                foreach(var tag in apiTicket.Tags)
+                foreach (var tag in apiTicket.Tags)
                 {
                     TagModel existingTag = _context.Tags.FirstOrDefault(t => t.Name == tag);
 
@@ -51,7 +54,7 @@ namespace ServerApp.Controllers
                     };
 
                     _context.TicketTags.Add(newTicketTag);
-               
+
                 }
 
                 _context.SaveChanges();
@@ -59,6 +62,6 @@ namespace ServerApp.Controllers
             }
 
             return BadRequest();
-        } 
+        }
     }
 }
