@@ -43,6 +43,7 @@ namespace ServerApp.Controllers
 
                     if (existingTag == null)
                     {
+                        existingTag = new();
                         existingTag.Name = tag;
                         _context.Tags.Add(existingTag);
                     }
