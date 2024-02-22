@@ -1,4 +1,5 @@
-﻿
+﻿@using Shared.Models
+
 <EditForm Model="NewTicket" OnValidSubmit="HandleSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -13,4 +14,17 @@
 @code {
     public TicketModel NewTicket { get; set; } = new();
     public List<int> TagIdList { get; set; } = new();
+    private bool isLoading;
+
+    private async Task HandleSubmit()
+    {
+        isLoading = true;
+
+        // Skicka det nya animalet till API:t
+        
+
+        isLoading = false;
+    }
+
+
 }
