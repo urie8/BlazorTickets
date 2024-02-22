@@ -1,11 +1,31 @@
 ﻿@page "/"
-
+@using ClientApp.Services
+@using Shared.Models
+@using System.Diagnostics
+@inject IApiCaller ApiCaller
 <PageTitle>Home</PageTitle>
 <TicketForm></TicketForm>
 
-<Ticket></Ticket>
+@foreach(var ticket in Tickets)
+{
+    <Ticket CurrentTicket="ticket"></Ticket>
+}
+
+
 
 
 @code{
+    public List<TicketModel> Tickets { get; set; } = new();
 
+    protected override async Task OnInitializedAsync(){
+        try
+        {
+            Tickets = await ApiCaller.GetTickets();
+
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine(ex); 
+        }
+    }
 }

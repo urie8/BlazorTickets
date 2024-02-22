@@ -8,12 +8,12 @@ namespace ClientApp.Services
     {
         public HttpClient Client { get; set; } = new()
         {
-            BaseAddress = new Uri("https://localhost:7267/api")
+            BaseAddress = new Uri("https://localhost:7267/api/")
         };
 
         public async Task<List<TicketModel>> GetTickets()
         {
-            var response = await Client.GetAsync("Ticket");
+            var response = await Client.GetAsync("ticket");
 
 
             if (response.IsSuccessStatusCode)
@@ -21,7 +21,7 @@ namespace ClientApp.Services
                 string TicketsJson = await response.Content.ReadAsStringAsync();
 
                 List<TicketModel>? tickets = JsonConvert.DeserializeObject<List<TicketModel>>(TicketsJson);
-
+                tickets = tickets.OrderByDescending(x => x.Id).ToList();
                 if (tickets != null)
                 {
                     return tickets;
@@ -35,7 +35,7 @@ namespace ClientApp.Services
 
         public async Task PostTicket(TicketApiModel ticketApiModel)
         {
-            await Client.PostAsJsonAsync("Ticket", ticketApiModel);
+            await Client.PostAsJsonAsync("ticket", ticketApiModel);
         }
 
     }
