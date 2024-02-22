@@ -1,6 +1,7 @@
-﻿@using Shared.Models
+﻿@using ClientApp.Services
+@using Shared.Models
 @using Shared
-
+@inject IApiCaller Apicaller
 <EditForm Model="NewTicket" OnValidSubmit="HandleSubmit" class="card w-50">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -21,7 +22,7 @@
         Tags:
        
     </label>
-    <InputSelect TValue="string" @bind-Value="Tag" >
+    <InputSelect  @bind-Value="Tag" >
         
         @foreach (var tag in Enum.GetNames(typeof(Tag)))
         {
@@ -45,6 +46,7 @@
 
         // Skicka det nya animalet till API:t
         NewTicket.Tags.Add(Tag);
+        await Apicaller.PostTicket(NewTicket);
 
         isLoading = false;
     }
