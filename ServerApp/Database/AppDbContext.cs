@@ -35,7 +35,5 @@ namespace ServerApp.Database
             .WithMany(t => t.Responses)
             .HasForeignKey(r => r.TicketId);
         }
-
-
     }
 }

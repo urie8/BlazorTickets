@@ -13,6 +13,15 @@ builder.Services.AddSwaggerGen();
 var appConnectionString = builder.Configuration.GetConnectionString("AppConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(appConnectionString));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", options =>
+    {
+        options.AllowAnyHeader();
+        options.AllowAnyMethod();
+        options.AllowAnyOrigin();
+    });
+});
 
 
 var app = builder.Build();

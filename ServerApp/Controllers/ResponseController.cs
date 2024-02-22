@@ -18,7 +18,6 @@ namespace ServerApp.Controllers
             return Ok(_context.Responses.Include(r => r.Ticket).ToList());
         }
 
-
         [HttpPost]
         public ActionResult<ResponseModel> Post(ResponseModel response)
         {

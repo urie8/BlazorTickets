@@ -18,7 +18,6 @@ namespace ServerApp.Controllers
             return Ok(_context.Tickets.Include(t => t.TicketTags).ThenInclude(t => t.Tag).ToList());
         }
 
-
         [HttpPost]
         public ActionResult<TicketApiModel> Post(TicketApiModel apiTicket)
         {

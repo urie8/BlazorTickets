@@ -1,0 +1,33 @@
+﻿@using Shared.Models
+@using Shared
+
+<EditForm Model="Response" OnValidSubmit="HandleSubmit" class="card w-50">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+ 
+    <label>
+        Response
+    <InputTextArea @bind-Value="Response.Response"></InputTextArea>
+    </label>
+    <label>
+        Submitted by:
+    <InputText @bind-Value="Response.SubmittedBy"></InputText>
+    </label>
+ 
+    <input type="submit" value="Create a response" />
+</EditForm>
+
+@code {
+    public ResponseModel Response { get; set; } = new();
+    private bool isLoading;
+
+    private async Task HandleSubmit()
+    {
+        isLoading = true;
+
+        // Skicka det nya responset till API:t
+    
+        isLoading = false;
+    }
+
+}

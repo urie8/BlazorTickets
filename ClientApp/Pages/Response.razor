@@ -1,0 +1,23 @@
+﻿@using Shared.Models
+<div class="card w-50">
+    <div class="card-header d-flex justify-content-between">
+@*         <h4 >@CurrentTicket.Title</h4> *@
+        <h4> </h4>
+    </div>
+
+    <div class="card-body">
+        <p>
+            @CurrentResponse.Response
+        </p>
+    </div>
+
+    <div class="card-footer">
+        <h4 class="float-end">Submitted by: @CurrentResponse.SubmittedBy</h4>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ResponseModel CurrentResponse { get; set; } = new();
+
+}
