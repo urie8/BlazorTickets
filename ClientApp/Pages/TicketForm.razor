@@ -1,19 +1,42 @@
 ﻿@using Shared.Models
+@using Shared
 
-<EditForm Model="NewTicket" OnValidSubmit="HandleSubmit">
+<EditForm Model="NewTicket" OnValidSubmit="HandleSubmit" class="card w-50">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
-    <InputText @bind-Value="NewTicket.Title"></InputText>
-    <InputTextArea @bind-Value="NewTicket.Description"></InputTextArea>
-    <InputText @bind-Value="NewTicket.SubmittedBy"></InputText>
+    <label>
+        Title
   
-    <input type="submit" value="Create new animal" />
+    <InputText @bind-Value="NewTicket.Title"></InputText>
+    </label>
+    <label>
+        Description
+    <InputTextArea @bind-Value="NewTicket.Description"></InputTextArea>
+    </label>
+    <label>
+        Submitted by:
+    <InputText @bind-Value="NewTicket.SubmittedBy"></InputText>
+    </label>
+    <label>
+        Tags:
+       
+    </label>
+    <InputSelect TValue="string" @bind-Value="Tag" >
+        
+        @foreach (var tag in Enum.GetNames(typeof(Tag)))
+        {
+            <option  value="@tag" >@tag </option>
+        }
+
+    
+    </InputSelect>
+
+    <input type="submit" value="Create a ticket" />
 </EditForm>
 
 @code {
-    public TicketModel NewTicket { get; set; } = new();
-    public List<int> TagIdList { get; set; } = new();
+    public TicketApiModel NewTicket { get; set; } = new();
+    public string Tag { get; set; }
     private bool isLoading;
 
     private async Task HandleSubmit()
@@ -21,10 +44,10 @@
         isLoading = true;
 
         // Skicka det nya animalet till API:t
-        
+        NewTicket.Tags.Add(Tag);
 
         isLoading = false;
     }
-
+    
 
 }

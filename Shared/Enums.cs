@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shared
+﻿namespace Shared
 {
-    enum Tag
+    public enum Tag
     {
         CSharp,
         DotNet,
@@ -29,7 +23,7 @@ namespace Shared
         GameDevelopment,
         CloudComputing,
         AWS,
-        BlazorTickets ,
+        BlazorTickets,
         Azure,
         GCP, // Google Cloud Platform
         DevOps,
