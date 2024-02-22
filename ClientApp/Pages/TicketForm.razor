@@ -1,0 +1,16 @@
+﻿
+<EditForm Model="NewTicket" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="NewTicket.Title"></InputText>
+    <InputTextArea @bind-Value="NewTicket.Description"></InputTextArea>
+    <InputText @bind-Value="NewTicket.SubmittedBy"></InputText>
+  
+    <input type="submit" value="Create new animal" />
+</EditForm>
+
+@code {
+    public TicketModel NewTicket { get; set; } = new();
+    public List<int> TagIdList { get; set; } = new();
+}
