@@ -74,5 +74,10 @@ namespace ClientApp.Services
             }
             throw new HttpRequestException();
         }
+
+        public async Task PostResponse(ResponseModel response)
+        {
+            await Client.PostAsJsonAsync("response", response);
+        }
     }
 }

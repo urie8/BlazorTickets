@@ -4,7 +4,7 @@
 @inject IApiCaller ApiCaller
 
 <Ticket CurrentTicket="CurrentTicket"></Ticket>
-<ResponseForm />
+<ResponseForm  CurrentTicket="CurrentTicket"/>
 @foreach(var response in Responses)
 {
     <Response CurrentResponse="response"> </Response>

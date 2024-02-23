@@ -1,5 +1,7 @@
-﻿@using Shared.Models
+﻿@using ClientApp.Services
+@using Shared.Models
 @using Shared
+@inject IApiCaller Apicaller
 
 <EditForm Model="Response" OnValidSubmit="HandleSubmit" class="card w-50">
     <DataAnnotationsValidator />
@@ -20,13 +22,18 @@
 @code {
     public ResponseModel Response { get; set; } = new();
     private bool isLoading;
+    [Parameter]
+    public TicketModel CurrentTicket{ get; set; }
 
     private async Task HandleSubmit()
     {
         isLoading = true;
 
         // Skicka det nya responset till API:t
-    
+        Response.Ticket = CurrentTicket;
+        await Apicaller.PostResponse(Response);
+
+
         isLoading = false;
     }
 

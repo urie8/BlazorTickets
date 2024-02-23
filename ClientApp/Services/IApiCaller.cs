@@ -8,6 +8,7 @@ namespace ClientApp.Services
         public Task<List<TicketModel>> GetTickets();
 
         public Task<List<ResponseModel>> GetResponse(int id);
+        public Task PostResponse(ResponseModel response);
         public Task PostTicket(TicketApiModel ticketApiModel);
         public Task<TicketModel> GetTicket(int id);
     }
