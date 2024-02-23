@@ -56,5 +56,23 @@ namespace ClientApp.Services
             await Client.PostAsJsonAsync("ticket", ticketApiModel);
         }
 
+        public async Task<List<ResponseModel>> GetResponse(int id)
+        {
+            var response = await Client.GetAsync($"response/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseJson = await response.Content.ReadAsStringAsync();
+                List<ResponseModel>? responses = JsonConvert.DeserializeObject<List<ResponseModel>>(responseJson);
+
+                if (responses != null)
+                {
+                    return responses;
+                }
+
+                throw new JsonException();
+            }
+            throw new HttpRequestException();
+        }
     }
 }

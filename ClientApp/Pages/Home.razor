@@ -5,6 +5,7 @@
 @inject IApiCaller ApiCaller
 <PageTitle>Home</PageTitle>
 
+   
 
 <TicketForm></TicketForm>
 
@@ -34,7 +35,7 @@ else
     public List<TicketModel> FilteredTickets { get; set; } = new();
 
     private bool isSearching = false;
-
+    private bool isDetails = false;
 
 
     protected override async Task OnInitializedAsync(){
@@ -50,7 +51,8 @@ else
     }
 
 
-    public void FilterList()
+
+    public void FilterList(ChangeEventArgs e)
     {
 
 
