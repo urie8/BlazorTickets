@@ -4,11 +4,27 @@
 @using System.Diagnostics
 @inject IApiCaller ApiCaller
 <PageTitle>Home</PageTitle>
+
+
 <TicketForm></TicketForm>
 
-@foreach(var ticket in Tickets)
+<input type="text" name="name" @bind-value="InputValue" @oninput=FilterList  /> 
+
+@if (FilteredTickets.Any())
 {
-    <Ticket CurrentTicket="ticket"></Ticket>
+    @foreach (var ticket in FilteredTickets)
+    {
+                    <Ticket CurrentTicket="ticket"></Ticket>
+    }
+
+}
+else
+{
+    @foreach (var ticket in Tickets)
+    {
+            <Ticket CurrentTicket="ticket"></Ticket>
+    }
+
 }
 
 
@@ -16,6 +32,12 @@
 
 @code{
     public List<TicketModel> Tickets { get; set; } = new();
+
+    public List<TicketModel> FilteredTickets { get; set; } = new();
+
+    [Parameter]
+    public string? InputValue { get; set; }
+
 
     protected override async Task OnInitializedAsync(){
         try
@@ -26,6 +48,17 @@
         catch (Exception ex)
         {
             Trace.WriteLine(ex); 
+        }
+    }
+
+
+    public void FilterList()
+    {
+        FilteredTickets = new();
+
+        foreach (var ticket in Tickets.Where(t => t.Title.Contains(InputValue)))
+        {
+                FilteredTickets.Add(ticket);
         }
     }
 }

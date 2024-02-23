@@ -13,9 +13,9 @@ namespace ServerApp.Controllers
         AppDbContext _context;
 
         [HttpGet]
-        public ActionResult<List<ResponseModel>> Get()
+        public ActionResult<List<ResponseModel>> Get(int ticketId)
         {
-            return Ok(_context.Responses.Include(r => r.Ticket).ToList());
+            return Ok(_context.Responses.Where(r => r.TicketId == ticketId).ToList());
         }
 
         [HttpPost]
