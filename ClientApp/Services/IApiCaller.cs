@@ -8,5 +8,6 @@ namespace ClientApp.Services
         public Task<List<TicketModel>> GetTickets();
 
         public Task PostTicket(TicketApiModel ticketApiModel);
+        public Task<TicketModel> GetTicket(int id);
     }
 }

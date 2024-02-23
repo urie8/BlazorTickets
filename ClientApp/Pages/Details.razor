@@ -1,4 +1,5 @@
-﻿@using ClientApp.Services
+﻿@page "/details/{id:int}"
+@using ClientApp.Services
 @using Shared.Models
 @inject IApiCaller ApiCaller
 <Ticket CurrentTicket="CurrentTicket"></Ticket>
@@ -9,9 +10,10 @@
     [Parameter]
     public TicketModel CurrentTicket {get; set;} = new();
     public List<ResponseModel> Responses { get; set; } = new();
-
+    public int id { get; set; }
     protected override async Task OnInitializedAsync()
     {
+        CurrentTicket = await ApiCaller.GetTicket(id);
         //Responses = await ApiCaller.GetResponses(CurrentTicket.Id);
     }
 }

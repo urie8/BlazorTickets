@@ -10,7 +10,7 @@
 
 <input type="text"  @oninput=FilterList  /> 
 
-@if (FilteredTickets.Any() )
+@if (isSearching)
 {
     @foreach (var ticket in FilteredTickets)
     {
@@ -35,7 +35,7 @@ else
 
     public List<TicketModel> FilteredTickets { get; set; } = new();
 
-
+    private bool isSearching = false;
 
 
 
@@ -54,9 +54,21 @@ else
 
     public void FilterList(ChangeEventArgs e)
     {
+
+
         FilteredTickets.Clear();
 
-        foreach (var ticket in Tickets.Where(t => t.Title.Contains(e.Value.ToString()) ||t.Description.Contains(e.Value.ToString())))
+        string inputSearch = e.Value.ToString();
+
+        isSearching = false;
+
+        if(inputSearch != null)
+        {
+            isSearching = true;
+        }
+
+
+        foreach (var ticket in Tickets.Where(t => t.Title.Contains(inputSearch) || t.Description.Contains(inputSearch)))
         {
                 FilteredTickets.Add(ticket);
         }
