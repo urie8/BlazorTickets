@@ -8,13 +8,11 @@
 
 <TicketForm></TicketForm>
 
-<input type="text"  @oninput=FilterList  /> 
-
-@if (FilteredTickets.Any() )
+@if (FilteredTickets.Any())
 {
     @foreach (var ticket in FilteredTickets)
     {
-                    <Ticket CurrentTicket="ticket"></Ticket>
+             <Ticket CurrentTicket="ticket"></Ticket>
     }
 
 }
@@ -28,15 +26,12 @@ else
 }
 
 
-
-
 @code{
     public List<TicketModel> Tickets { get; set; } = new();
 
     public List<TicketModel> FilteredTickets { get; set; } = new();
 
-
-
+    public string? InputValue;
 
 
     protected override async Task OnInitializedAsync(){
@@ -52,11 +47,11 @@ else
     }
 
 
-    public void FilterList(ChangeEventArgs e)
+    public void FilterList()
     {
-        FilteredTickets.Clear();
+        FilteredTickets = new();
 
-        foreach (var ticket in Tickets.Where(t => t.Title.Contains(e.Value.ToString()) ||t.Description.Contains(e.Value.ToString())))
+        foreach (var ticket in Tickets.Where(t => t.Title.Contains(InputValue)))
         {
                 FilteredTickets.Add(ticket);
         }

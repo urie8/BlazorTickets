@@ -13,6 +13,7 @@ namespace ServerApp.Controllers
         AppDbContext _context;
 
         [HttpGet]
+        [Route("{ticketId}")]
         public ActionResult<List<ResponseModel>> Get(int ticketId)
         {
             return Ok(_context.Responses.Where(r => r.TicketId == ticketId).ToList());
