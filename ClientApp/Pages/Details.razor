@@ -1,17 +1,25 @@
-﻿@using ClientApp.Services
+﻿@page "/details/{id:int}"
+@using ClientApp.Services
 @using Shared.Models
 @inject IApiCaller ApiCaller
-<Ticket CurrentTicket="CurrentTicket"></Ticket>
 
+<Ticket CurrentTicket="CurrentTicket"></Ticket>
+<ResponseForm />
+@foreach(var response in Responses)
+{
+    <Response CurrentResponse="response"> </Response>
+}
 
 
 @code {
     [Parameter]
     public TicketModel CurrentTicket {get; set;} = new();
     public List<ResponseModel> Responses { get; set; } = new();
-
+    [Parameter]
+    public int id { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        //Responses = await ApiCaller.GetResponses(CurrentTicket.Id);
+        CurrentTicket = await ApiCaller.GetTicket(id);
+        Responses = await ApiCaller.GetResponse(CurrentTicket.Id);
     }
 }

@@ -32,11 +32,47 @@ namespace ClientApp.Services
 
             throw new HttpRequestException();
         }
+        public async Task<TicketModel> GetTicket(int id)
+        {
+            var response = await Client.GetAsync($"ticket/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                string TicketJson = await response.Content.ReadAsStringAsync();
+                TicketModel? ticket = JsonConvert.DeserializeObject<TicketModel>(TicketJson);
+
+                if (ticket != null)
+                {
+                    return ticket;
+                }
+
+                throw new JsonException();
+            }
+            throw new HttpRequestException();
+        }
 
         public async Task PostTicket(TicketApiModel ticketApiModel)
         {
             await Client.PostAsJsonAsync("ticket", ticketApiModel);
         }
 
+        public async Task<List<ResponseModel>> GetResponse(int id)
+        {
+            var response = await Client.GetAsync($"response/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseJson = await response.Content.ReadAsStringAsync();
+                List<ResponseModel>? responses = JsonConvert.DeserializeObject<List<ResponseModel>>(responseJson);
+
+                if (responses != null)
+                {
+                    return responses;
+                }
+
+                throw new JsonException();
+            }
+            throw new HttpRequestException();
+        }
     }
 }

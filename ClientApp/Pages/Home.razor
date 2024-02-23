@@ -5,10 +5,13 @@
 @inject IApiCaller ApiCaller
 <PageTitle>Home</PageTitle>
 
+   
 
 <TicketForm></TicketForm>
 
-@if (FilteredTickets.Any())
+<input type="text"  @oninput=FilterList  /> 
+
+@if (isSearching)
 {
     @foreach (var ticket in FilteredTickets)
     {
@@ -31,7 +34,8 @@ else
 
     public List<TicketModel> FilteredTickets { get; set; } = new();
 
-    public string? InputValue;
+    private bool isSearching = false;
+    private bool isDetails = false;
 
 
     protected override async Task OnInitializedAsync(){
@@ -47,11 +51,24 @@ else
     }
 
 
-    public void FilterList()
-    {
-        FilteredTickets = new();
 
-        foreach (var ticket in Tickets.Where(t => t.Title.Contains(InputValue)))
+    public void FilterList(ChangeEventArgs e)
+    {
+
+
+        FilteredTickets.Clear();
+
+        string inputSearch = e.Value.ToString();
+
+        isSearching = false;
+
+        if(inputSearch != null)
+        {
+            isSearching = true;
+        }
+
+
+        foreach (var ticket in Tickets.Where(t => t.Title.Contains(inputSearch) || t.Description.Contains(inputSearch)))
         {
                 FilteredTickets.Add(ticket);
         }

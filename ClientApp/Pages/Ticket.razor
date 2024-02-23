@@ -1,5 +1,8 @@
 ﻿@using Shared.Models
-<div class="card w-50">
+@inject NavigationManager Navmanager
+
+
+<div class="card w-50" @onclick=Click>
     <div class="card-header d-flex justify-content-between">
         <h4 >@CurrentTicket.Title</h4>
         <h4> </h4>
@@ -20,4 +23,9 @@
     [Parameter]
     public TicketModel CurrentTicket { get; set; } = new();
 
+
+    private void Click()
+    {
+        Navmanager.NavigateTo($"details/{CurrentTicket.Id}");
+    }
 }
