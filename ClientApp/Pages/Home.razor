@@ -8,9 +8,9 @@
 
 <TicketForm></TicketForm>
 
-<input type="text" name="name" @bind-value="InputValue" @oninput=FilterList  /> 
+<input type="text"  @oninput=FilterList  /> 
 
-@if (FilteredTickets.Any())
+@if (FilteredTickets.Any() )
 {
     @foreach (var ticket in FilteredTickets)
     {
@@ -35,8 +35,8 @@ else
 
     public List<TicketModel> FilteredTickets { get; set; } = new();
 
-    [Parameter]
-    public string? InputValue { get; set; }
+
+
 
 
     protected override async Task OnInitializedAsync(){
@@ -52,11 +52,11 @@ else
     }
 
 
-    public void FilterList()
+    public void FilterList(ChangeEventArgs e)
     {
-        FilteredTickets = new();
+        FilteredTickets.Clear();
 
-        foreach (var ticket in Tickets.Where(t => t.Title.Contains(InputValue)))
+        foreach (var ticket in Tickets.Where(t => t.Title.Contains(e.Value.ToString()) ||t.Description.Contains(e.Value.ToString())))
         {
                 FilteredTickets.Add(ticket);
         }

@@ -1,0 +1,17 @@
+﻿@using ClientApp.Services
+@using Shared.Models
+@inject IApiCaller ApiCaller
+<Ticket CurrentTicket="CurrentTicket"></Ticket>
+
+
+
+@code {
+    [Parameter]
+    public TicketModel CurrentTicket {get; set;} = new();
+    public List<ResponseModel> Responses { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        //Responses = await ApiCaller.GetResponses(CurrentTicket.Id);
+    }
+}
