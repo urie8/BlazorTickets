@@ -12,6 +12,11 @@ namespace ServerApp.Controllers
     {
         AppDbContext _context;
 
+        public ResponseController(AppDbContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         [Route("{ticketId}")]
         public ActionResult<List<ResponseModel>> Get(int ticketId)

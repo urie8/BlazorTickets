@@ -9,11 +9,11 @@ namespace ServerApp.Controllers
     [ApiController]
     public class TicketController : ControllerBase
     {
+        AppDbContext _context;
         public TicketController(AppDbContext context)
         {
             _context = context;
         }
-        AppDbContext _context;
 
         [HttpGet]
         public ActionResult<List<TicketModel>> Get()
