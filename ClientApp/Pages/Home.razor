@@ -14,7 +14,7 @@
 {
     @foreach (var ticket in FilteredTickets)
     {
-                    <Ticket CurrentTicket="ticket"></Ticket>
+             <Ticket CurrentTicket="ticket"></Ticket>
     }
 
 }
@@ -26,8 +26,6 @@ else
     }
 
 }
-
-
 
 
 @code{
@@ -52,7 +50,7 @@ else
     }
 
 
-    public void FilterList(ChangeEventArgs e)
+    public void FilterList()
     {
 
 

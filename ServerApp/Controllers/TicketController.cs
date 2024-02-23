@@ -21,6 +21,14 @@ namespace ServerApp.Controllers
             return Ok(_context.Tickets.Include(t => t.TicketTags).ThenInclude(t => t.Tag).ToList());
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult<TicketModel> Get(int id)
+        {
+            return Ok(_context.Tickets.Include(t => t.TicketTags).ThenInclude(t => t.Tag).FirstOrDefault(t => t.Id == id));
+        }
+
+
         [HttpPost]
         public ActionResult<TicketApiModel> Post(TicketApiModel apiTicket)
         {
