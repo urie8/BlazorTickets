@@ -7,7 +7,7 @@
 
    
 
-<TicketForm></TicketForm>
+<TicketForm OnPostTicket="async () => await UpdateTicketList()"></TicketForm>
 
 <input type="text"  @oninput=FilterList  /> 
 
@@ -38,6 +38,8 @@ else
     private bool isDetails = false;
 
 
+
+
     protected override async Task OnInitializedAsync(){
         try
         {
@@ -50,7 +52,20 @@ else
         }
     }
 
+    private async Task UpdateTicketList()
+    {
+        try
+        {
+            Tickets = await ApiCaller.GetTickets();
 
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine(ex);
+        }
+
+        StateHasChanged();
+    }
 
     public void FilterList(ChangeEventArgs e)
     {

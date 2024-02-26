@@ -39,6 +39,8 @@
     public TicketApiModel NewTicket { get; set; } = new();
     public string Tag { get; set; }
     private bool isLoading;
+    [Parameter]
+    public Action? OnPostTicket { get; set; }
 
     private async Task HandleSubmit()
     {
@@ -49,6 +51,8 @@
         await Apicaller.PostTicket(NewTicket);
 
         isLoading = false;
+
+        OnPostTicket?.Invoke();
     }
     
 

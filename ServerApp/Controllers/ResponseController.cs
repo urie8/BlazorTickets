@@ -28,6 +28,7 @@ namespace ServerApp.Controllers
             if (response != null)
             {
                 _context.Responses.Add(response);
+                _context.SaveChanges();
                 return Ok();
             }
 

@@ -61,7 +61,7 @@ namespace ServerApp.Controllers
                         Tag = existingTag
                     };
 
-                    _context.TicketTags.Add(newTicketTag);
+
 
                 }
 
